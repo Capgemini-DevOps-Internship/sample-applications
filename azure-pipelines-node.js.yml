@@ -22,7 +22,7 @@ steps:
     npm install
     npm run build
   displayName: 'npm install and build'
-  workingDirectory: '$(Build.SourcesDirectory)/catalog-api'
+  workingDirectory: '$(Build.SourcesDirectory)/catalog-api/package-lock.json'
 - task: CopyFiles@2
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
