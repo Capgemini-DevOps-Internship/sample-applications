@@ -11,7 +11,7 @@ pool:
 
 variables:
   solutionDir: 'catalog-api'
-  npm_config_cache: $(Pipeline.Workspace)/.npm
+  npm_config_cache: 'catalog-api/package-lock.json'
 
 steps:
 - task: NodeTool@0
@@ -23,7 +23,7 @@ steps:
     npm install
     npm run build
   displayName: 'npm install and build'
-  workingDirectory: '$(Build.SourcesDirectory)/catalog-api/package-lock.json'
+  workingDirectory: '$(Build.SourcesDirectory)'
 
 - task: Cache@2
   inputs:
