@@ -22,7 +22,3 @@ steps:
   displayName: 'npm install'
   workingDirectory: '/home/vsts/work/1/s/catalog-api'
 
-- script: |
-    npm run build
-  displayName: 'npm build'
-  workingDirectory: '/home/vsts/work/1/s/catalog-api'
