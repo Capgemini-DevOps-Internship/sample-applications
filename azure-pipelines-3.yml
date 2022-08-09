@@ -9,12 +9,24 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  npm_config_cache: $(Pipeline.Workspace)/s/catalog-api/package-lock.json
+
 steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
+- task: Cache@2
+  inputs:
+    key: 'npm | "$(Agent.OS)" | package-lock.json'
+    restoreKeys: |
+       npm | "$(Agent.OS)"
+    path: $(npm_config_cache)
+  displayName: Cache npm
+
+- script: npm ci
 - script: |
     npm install
     npm run build
