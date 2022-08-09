@@ -19,12 +19,6 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
-  workingDirectory: '$(Build.SourcesDirectory)'
-
 - task: Cache@2
   inputs:
     key: 'npm | "$(Agent.OS)" | package-lock.json'
@@ -32,6 +26,14 @@ steps:
        npm | "$(Agent.OS)"
     path: $(npm_config_cache)
   displayName: Cache npm
+
+- script: npm ci
+
+- script: |
+    npm install
+    npm run build
+  displayName: 'npm install and build'
+  workingDirectory: '$(Build.SourcesDirectory)/catalog-api'
 
 - task: CopyFiles@2
   inputs:
