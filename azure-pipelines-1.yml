@@ -10,6 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
+  workingDirectory: '$(build.sourcesdirectory)/catalog-api'
   npm_config_cache: '$(Pipeline.Workspace)/catalog-api'
 
 steps:
