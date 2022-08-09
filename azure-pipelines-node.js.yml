@@ -26,7 +26,6 @@ steps:
     restoreKeys: |
        npm | "$(Agent.OS)"
     path: $(npm_config_cache)
-  displayName: Cache npm
 
     npm install
     npm run build
