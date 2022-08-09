@@ -3,34 +3,37 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
-trigger:
-- main
+name: Node.js CI
 
-pool:
-  vmImage: ubuntu-latest
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-variables:
-  workingDirectory: '$(build.sourcesdirectory)/catalog-api'
-  npm_config_cache: '$(Pipeline.Workspace)/catalog-api'
+jobs:
+  build:
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./catalog-api
 
-- task: Cache@2
-  inputs:
-    key: 'npm | "$(Agent.OS)" | package-lock.json'
-    restoreKeys: |
-       npm | "$(Agent.OS)"
-    path: $(npm_config_cache)
-  displayName: Cache npm
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-- script: npm ci
-
-- script: |
-    workingDirectory: '$(build.sourcesdirectory)/catalog-api'
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: './catalog-api/package-lock.json'
+    - run: npm ci
+      working-directory: ${{env.working-directory}}
+    - run: npm run build --if-present
+      working-directory: ${{env.working-directory}}
+    - run: npm test
+      working-directory: ${{env.working-directory}}
