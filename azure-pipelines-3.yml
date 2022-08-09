@@ -24,11 +24,3 @@ steps:
     npm run build
   displayName: 'npm install and build'
   workingDirectory: '/home/vsts/work/1/s/catalog-api'
-
-- task: Cache@2
-  inputs:
-    key: 'npm | "$(Agent.OS)" | package-lock.json'
-    restoreKeys: |
-       npm | "$(Agent.OS)"
-    path: $(npm_config_cache)
-  displayName: Cache npm
