@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  npm_config_cache: $(Pipeline.Workspace)/s/catalog-api/package-lock.json
+  npm_config_cache: $(Pipeline.Workspace)/s/catalog-api
 
 steps:
 - task: NodeTool@0
