@@ -41,6 +41,7 @@ steps:
     arguments: '--no-build --no-self-contained --output $(Build.ArtifactStagingDirectory)/API'
     zipAfterPublish: false
     modifyOutputPath: false
+    workingDirectory: '$(solutionDir)'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish API artifact
@@ -48,6 +49,7 @@ steps:
     PathtoPublish: :'$(Build.ArtifactStagingDirectory)/API'
     ArtifactName: 'API'
     publishLocation: 'container'
+    workingDirectory: '$(solutionDir)'
 
 - task: DotNetCoreCLI@2
   displayName: Publish DB project
@@ -57,6 +59,7 @@ steps:
     arguments: '--no-build --no-self-contained --output $(Build.ArtifactStagingDirectory)/DB'
     zipAfterPublish: false
     modifyOutputPath: false
+    workingDirectory: '$(solutionDir)'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish DB artifact
@@ -64,6 +67,7 @@ steps:
     PathtoPublish: :'$(Build.ArtifactStagingDirectory)/DB'
     ArtifactName: 'DB'
     publishLocation: 'container' 
+    workingDirectory: '$(solutionDir)'
 - task: DotNetCoreCLI@2
   displayName: Publish Test project
   inputs:
@@ -72,6 +76,7 @@ steps:
     arguments: '--no-build --no-self-contained --output $(Build.ArtifactStagingDirectory)/Test'
     zipAfterPublish: false
     modifyOutputPath: false
+    workingDirectory: '$(solutionDir)'
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Test artifact
@@ -79,3 +84,4 @@ steps:
     PathtoPublish: :'$(Build.ArtifactStagingDirectory)/Test'
     ArtifactName: 'Test'
     publishLocation: 'container' 
+    workingDirectory: '$(solutionDir)'
