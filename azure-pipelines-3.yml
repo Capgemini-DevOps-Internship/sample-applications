@@ -15,10 +15,14 @@ variables:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '16.x'
+    versionSpec: '10.x'
   displayName: 'Install Node.js'
 
 - script: npm install --only=dev
   displayName: 'npm install'
+  workingDirectory: '/home/vsts/work/1/s/catalog-api'
+
+- script: npm build
+  displayName: 'npm build'
   workingDirectory: '/home/vsts/work/1/s/catalog-api'
 
