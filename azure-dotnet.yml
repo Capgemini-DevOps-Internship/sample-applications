@@ -32,3 +32,50 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Publish API project
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    arguments: '--no-build --no-self-contained --output $(Build.ArtifactStagingDirectory)/API'
+    zipAfterPublish: false
+    modifyOutputPath: false
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish API artifact
+  inputs:
+    PathtoPublish: :'$(Build.ArtifactStagingDirectory)/API'
+    ArtifactName: 'API'
+    publishLocation: 'container'
+
+- task: DotNetCoreCLI@2
+  displayName: Publish DB project
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    arguments: '--no-build --no-self-contained --output $(Build.ArtifactStagingDirectory)/DB'
+    zipAfterPublish: false
+    modifyOutputPath: false
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish DB artifact
+  inputs:
+    PathtoPublish: :'$(Build.ArtifactStagingDirectory)/DB'
+    ArtifactName: 'DB'
+    publishLocation: 'container' 
+- task: DotNetCoreCLI@2
+  displayName: Publish Test project
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    arguments: '--no-build --no-self-contained --output $(Build.ArtifactStagingDirectory)/Test'
+    zipAfterPublish: false
+    modifyOutputPath: false
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Test artifact
+  inputs:
+    PathtoPublish: :'$(Build.ArtifactStagingDirectory)/Test'
+    ArtifactName: 'Test'
+    publishLocation: 'container' 
