@@ -44,10 +44,10 @@ steps:
     modifyOutputPath: false
     workingDirectory: '$(solutionDir)'
 
-- task: PublishBuildArtifacts@1
+- task: PublishPipelineArtifact@1
   displayName: Publish API artifact
   inputs:
-    PathtoPublish: :'$(Build.ArtifactStagingDirectory)/API'
+    targetPath: '$(Build.ArtifactStagingDirectory)/API'
     ArtifactName: 'API'
     publishLocation: 'container'
     workingDirectory: '$(solutionDir)'
@@ -63,10 +63,10 @@ steps:
     modifyOutputPath: false
     workingDirectory: '$(solutionDir)'
 
-- task: PublishBuildArtifacts@1
+- task: PublishPipelineArtifact@1
   displayName: Publish DB artifact
   inputs:
-    PathtoPublish: :'$(Build.ArtifactStagingDirectory)/DB'
+    targetPath:'$(Build.ArtifactStagingDirectory)/DB'
     ArtifactName: 'DB'
     publishLocation: 'container' 
     workingDirectory: '$(solutionDir)'
@@ -81,10 +81,10 @@ steps:
     modifyOutputPath: false
     workingDirectory: '$(solutionDir)'
 
-- task: PublishBuildArtifacts@1
+- task: PublishPipelineArtifact@1
   displayName: Publish Test artifact
   inputs:
-    PathtoPublish: :'$(Build.ArtifactStagingDirectory)/Test'
+    targetPath: '$(Build.ArtifactStagingDirectory)/Test'
     ArtifactName: 'Test'
     publishLocation: 'container' 
     workingDirectory: '$(solutionDir)'
