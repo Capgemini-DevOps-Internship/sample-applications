@@ -66,10 +66,11 @@ steps:
 - task: PublishPipelineArtifact@1
   displayName: Publish DB artifact
   inputs:
-    targetPath:'$(Build.ArtifactStagingDirectory)/DB'
+    targetPath: '$(Build.ArtifactStagingDirectory)/DB'
     ArtifactName: 'DB'
     publishLocation: 'container' 
     workingDirectory: '$(solutionDir)'
+
 - task: DotNetCoreCLI@2
   displayName: Publish Test project
   inputs:
