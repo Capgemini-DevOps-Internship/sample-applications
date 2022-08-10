@@ -38,6 +38,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
+    projects: '**/Booking.Server.API.csproj'
     arguments: '--no-build --no-self-contained --output $(Build.ArtifactStagingDirectory)/API'
     zipAfterPublish: false
     modifyOutputPath: false
@@ -56,6 +57,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
+    projects: '**/Booking.Server.DB.csproj'
     arguments: '--no-build --no-self-contained --output $(Build.ArtifactStagingDirectory)/DB'
     zipAfterPublish: false
     modifyOutputPath: false
@@ -73,6 +75,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
+    projects: '**/Booking.Server.Test.csproj'
     arguments: '--no-build --no-self-contained --output $(Build.ArtifactStagingDirectory)/Test'
     zipAfterPublish: false
     modifyOutputPath: false
