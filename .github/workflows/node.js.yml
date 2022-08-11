@@ -39,4 +39,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: catalog-api
-        path: /home/runner/work/sample-applications/sample-applications/catalog-api/
+        path: |
+          /home/runner/work/sample-applications/sample-applications/catalog-api/
+          !/home/runner/work/sample-applications/sample-applications/catalog-api/spec/**
+          !/home/runner/work/sample-applications/sample-applications/catalog-api/.gitignore
