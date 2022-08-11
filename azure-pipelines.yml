@@ -28,36 +28,31 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'package.json' 
+    contents: '/home/vsts/work/1/s/catalog-api/package.json' 
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy package.json'
 
 - task: CopyFiles@2
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'package-lock.json' 
+    contents: '/home/vsts/work/1/s/catalog-api/package-lock.json' 
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy package-lock.json'
 
 - task: CopyFiles@2
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'app.js' 
+    contents: '/home/vsts/work/1/s/catalog-api/app.js' 
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy app.js'
 
 - task: CopyFiles@2
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '**\bin\**' 
+    contents: '/home/vsts/work/1/s/catalog-api/bin/*' 
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy bin folder'
 
 - task: CopyFiles@2
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: '**/routes' 
+    contents: '/home/vsts/work/1/s/catalog-api/routes/*' 
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy routes folder'
 
