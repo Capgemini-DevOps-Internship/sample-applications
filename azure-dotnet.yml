@@ -25,14 +25,18 @@ steps:
   inputs:
     workingDirectory: '$(solutionDir)'
 
-- script: dotnet build --no-restore
-  displayName:'Build'
-  workingDirectory: '$(solutionDir)'
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    command: build
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 
-
-- script: dotnet test --no-build --verbosity normal
-  displayName:'Test'
-  workingDirectory: '$(solutionDir)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: Publish API project
