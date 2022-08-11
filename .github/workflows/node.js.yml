@@ -35,6 +35,8 @@ jobs:
       working-directory: ${{env.working-directory}}
     - run: npm test
       working-directory: ${{env.working-directory}}
-    - name: publish
-      run: npm publish
-      working-directory: ${{env.working-directory}}
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: catalog-api
+        path: /home/runner/work/sample-applications/sample-applications/catalog-api/
