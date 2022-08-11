@@ -24,6 +24,7 @@ steps:
     npm run build
     npm test
   displayName: 'npm install and build'
+  workingDirectory: '$(Build.SourcesDirectory)'
 
 - task: CopyFiles@2
   inputs:
