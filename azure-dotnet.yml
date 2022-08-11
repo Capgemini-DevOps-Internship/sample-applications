@@ -16,8 +16,10 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
+  displayName: 'NuGet Tool Installer'
 
 - task: NuGetCommand@2
+  displayName: 'NuGet restore packages'
   inputs:
     command: 'restore'
     restoreSolution: '$(solution)'
@@ -30,6 +32,7 @@ steps:
     arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Test'
   inputs:
     command: test
     projects: '$(solution)'
@@ -79,7 +82,7 @@ steps:
     zipAfterPublish: false
     modifyOutputPath: false
 
-- task: PublishPipelineArtifact@1
+- task: PublishBuildArtifacts@1
   displayName: Publish Test artifact
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)/Test'
