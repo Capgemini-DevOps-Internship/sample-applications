@@ -29,6 +29,7 @@ steps:
   displayName:'Build'
   workingDirectory: '$(solutionDir)'
 
+
 - script: dotnet test --no-build --verbosity normal
   displayName:'Test'
   workingDirectory: '$(solutionDir)'
