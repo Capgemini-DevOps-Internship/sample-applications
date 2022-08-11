@@ -10,87 +10,78 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solutionDir: 'booking-api/Booking.Server'
+  solution: '**/Booking.Server.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
-- task: UseDotNet@2
-  displayName: 'Install .NET Core SDK'
-  inputs:
-    version: 5.0.x
-- task: DotNetCoreCLI@2
-  displayName: Restore
-  inputs:
-    command: restore
-    projects: '**/*.csproj'
+- task: NuGetToolInstaller@1
 
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '$(solution)'
+    feedsToUse: select
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     command: build
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    projects: '$(solution)'
+    arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: test
-    projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    projects: '$(solution)'
+    arguments: '--configuration $(BuildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: Publish API project
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: '**Booking.Server.API.csproj'
-    arguments: '--no-build --no-self-contained --output $(Build.ArtifactStagingDirectory)/API'
+    projects: '**/Booking.Server.API.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/API'
     zipAfterPublish: false
     modifyOutputPath: false
-    workingDirectory: '$(solutionDir)'
 
-- task: PublishPipelineArtifact@1
+- task: PublishBuildArtifacts@1
   displayName: Publish API artifact
   inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)/API'
+    PathtoPublish: : '$(Build.ArtifactStagingDirectory)/API'
     ArtifactName: 'API'
     publishLocation: 'container'
-    workingDirectory: '$(solutionDir)'
 
 - task: DotNetCoreCLI@2
   displayName: Publish DB project
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: '**Booking.Server.DB.csproj'
-    arguments: '--no-build --no-self-contained --output $(Build.ArtifactStagingDirectory)/DB'
+    projects: '**/Booking.Server.DB.csproj'
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/DB'
     zipAfterPublish: false
     modifyOutputPath: false
-    workingDirectory: '$(solutionDir)'
 
-- task: PublishPipelineArtifact@1
+- task: PublishBuildArtifacts@1
   displayName: Publish DB artifact
   inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)/DB'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/DB'
     ArtifactName: 'DB'
     publishLocation: 'container' 
-    workingDirectory: '$(solutionDir)'
 
 - task: DotNetCoreCLI@2
   displayName: Publish Test project
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: '**Booking.Server.Test.csproj'
+    projects: '**/Booking.Server.Test.csproj'
     arguments: '--no-build --no-self-contained --output $(Build.ArtifactStagingDirectory)/Test'
     zipAfterPublish: false
     modifyOutputPath: false
-    workingDirectory: '$(solutionDir)'
 
 - task: PublishPipelineArtifact@1
   displayName: Publish Test artifact
   inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)/Test'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/Test'
     ArtifactName: 'Test'
     publishLocation: 'container' 
-    workingDirectory: '$(solutionDir)'
