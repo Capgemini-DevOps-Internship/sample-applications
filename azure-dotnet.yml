@@ -15,23 +15,23 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: UseDotNet@2
+  displayName: 'Install .NET Core SDK'
+  inputs:
+    version: 6.0.x
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
   inputs:
     workingDirectory: '$(solutionDir)'
 
-- task: VSBuild@1
-  inputs:
-    workingDirectory: '$(solutionDir)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+- script: dotnet build --no-restore
+  displayName:'Build'
+  workingDirectory: '$(solutionDir)'
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+- script: dotnet test --no-build --verbosity normal
+  displayName:'Test'
+  workingDirectory: '$(solutionDir)'
 
 - task: DotNetCoreCLI@2
   displayName: Publish API project
