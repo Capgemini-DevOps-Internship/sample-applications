@@ -38,13 +38,6 @@ steps:
     projects: '$(solution)'
     arguments: '--configuration $(BuildConfiguration)'
 
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/TEST-*.xml'
-    buildPlatform: '$(BuildPlatform)'
-    buildConfiguration: '$(BuildConfiguration)'
-
 - task: DotNetCoreCLI@2
   displayName: Publish API project
   inputs:
