@@ -11,5 +11,5 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /apps/sample-applications/booking-api/Booking.Server
 COPY --from=build-env /apps/sample-applications/booking-api/Booking.Server .
-ENTRYPOINT ["dotnet", "Booking.Server.API.dll", "Booking.Server.DB.dll", "Booking.Server.Test.dll"]
+ENTRYPOINT ["dotnet", "Booking.Server.API.dll"]
 
