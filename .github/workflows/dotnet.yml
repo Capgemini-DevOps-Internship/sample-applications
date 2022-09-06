@@ -31,18 +31,9 @@ jobs:
     - name: Publish
       run: dotnet publish
       working-directory: ${{env.working-directory}}
-    - name: Upload DB Build Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: DB
-        path: /home/runner/work/sample-applications/sample-applications/booking-api/Booking.Server/Booking.Server.DB/bin/Debug/net6.0/publish/
     - name: Upload API Build Artifact
       uses: actions/upload-artifact@v2
       with:
         name: API
         path: /home/runner/work/sample-applications/sample-applications/booking-api/Booking.Server/Booking.Server.API/bin/Debug/net6.0/publish/
-    - name: Upload Test Build Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: Test
-        path: /home/runner/work/sample-applications/sample-applications/booking-api/Booking.Server/Booking.Server.Test/bin/Debug/net6.0/publish/
+    
